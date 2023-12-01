@@ -4,7 +4,7 @@ This project is a QR code generator for Arduino ESP32 microcontroller. It utiliz
 
 ## Functionality
 
-- Create a QR code containing the user input data (using the lib https://components.espressif.com/components/espressif/qrcode or https://github.com/ricmoo/QRCode)
+- Create a QR code containing the user input data (using the lib https://github.com/yoprogramo/QRcode_ST7789 or https://github.com/ricmoo/QRCode)
 - Read a qrcode link and display the data (using the api  https://goqr.me/api/doc/read-qr-code/)
 
 ## Dependencies
