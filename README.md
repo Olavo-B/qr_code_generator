@@ -31,3 +31,4 @@ Olavo Barros
 
 - ESP32 WiFi library: [Link to the library documentation]
 - QRCode library: [Link to the library documentation]
+- T-Watch 2020 v1: [Documentation](https://t-watch-document-en.readthedocs.io/en/latest/introduction/product/2020.html) and [Github](https://github.com/Xinyuan-LilyGO/TTGO_TWatch_Library)
