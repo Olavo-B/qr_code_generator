@@ -2,6 +2,8 @@
 
 This project is a QR code generator for Arduino ESP32 microcontroller. It utilizes the ESP32's built-in WiFi capabilities to connect to the internet and retrieve the necessary data for generating the QR code.
 
+Was used the T-Watch 2020 v1 as a development board. The T-Watch 2020 v1 is a smartwatch based on ESP32 microcontroller. It has a 1.54" TFT display, a 240mAh battery, a microphone, a buzzer, and a vibration motor.
+
 ## Functionality
 
 - Create a QR code containing the user input data (using the lib https://github.com/yoprogramo/QRcode_ST7789 or https://github.com/ricmoo/QRCode)
@@ -11,6 +13,7 @@ This project is a QR code generator for Arduino ESP32 microcontroller. It utiliz
 
 - ESP32 WiFi library
 - QRCode library
+- T-Watch 2020 v1
 
 ## Usage
 
