@@ -12,6 +12,9 @@ static const bool true = 1;
 #include <Arduino.h>
 #include <HTTPClient.h>
 #include <WiFi.h>
+#include <WiFiClientSecure.h>
+#include <SPIFFS.h>
+#include <FS.h>
 #include <stdint.h>
 #include <string>
 
