@@ -1,5 +1,7 @@
-#ifndef __QRGENERETOR_H_
-#define __QRGENERETOR_H_
+#pragma once
+
+#ifndef __QR_CODE_GENERATOR_H_
+#define __QR_CODE_GENERATOR_H_
 
 #ifndef __cplusplus
 typedef unsigned char bool;
@@ -8,15 +10,16 @@ static const bool true = 1;
 #endif
 
 #include <Arduino.h>
-#include <stdint.h>
 #include <HTTPClient.h>
+#include <WiFi.h>
+#include <stdint.h>
 #include <string>
 
-class QrGeneretor
+class qr_code_generator
 {
 public:
-    QrGeneretor();
-    ~QrGeneretor();
+    qr_code_generator();
+    ~qr_code_generator();
 
     /**
      * Generate QR code from text
@@ -25,18 +28,25 @@ public:
      * @return true - success, false - error
      */
     bool generateQrCode(const char* text, const int size = 100);
-    
-    /**
-     * Read QR code from file
-     * @param filename - name of the file containing the QR code
-     */
-    void readQrCode(const char* filename);
 
+    /**
+     * Get content from QR code
+     * @param path - path to the file containing the text
+     * @return true - success, false - error
+     */
+    bool generateText(const char* path);
+    
     /**
      * Get the URL string of the generated QR code
      * @return URL string
      */
-    string getUrlString();
+    String getUrlString();
+
+    /**
+     * Get the QR code
+     * @return pointer to the QR code
+     */
+    void* getQrCode();
 
     /**
      * Free the memory allocated for the QR code
@@ -49,10 +59,10 @@ private:
      * @param string - string to decode
      * @return pointer to the decoded QR code
      */
-    void* qrCodeDecodeString(const char* string);
+    void* QRcode_decodeString(const char* string);
 
     void* mQrCode;
-    string urlString;
+    String mUrlString;
 };
 
-#endif // __QRGENERETOR_H_
+#endif // __QR_CODE_GENERATOR_H_

@@ -1,67 +1,85 @@
 /**
  * @file qr_code_generator.cpp
- * @brief Implementation file for the QrGeneretor class.
+ * @brief Implementation file for the qr_code_generator class.
  */
 #include "qr_code_generator.h"
 
-QrGeneretor::QrGeneretor()
+qr_code_generator::qr_code_generator()
 {
     mQrCode   = NULL;
-    urlString = "";
+    mUrlString = "";
 }
 
-QrGeneretor::~QrGeneretor()
+void qr_code_generator::QRcodeFree()
+{
+    free(mQrCode);
+}
+
+qr_code_generator::~qr_code_generator()
 {
     if (mQrCode != NULL)
     {
-        QRcodeFree(mQrCode);
+        QRcodeFree();
     }
 }
 
-bool QrGeneretor::generateQrCode(const char* text, const int size)
+bool qr_code_generator::generateQrCode(const char* text, const int size)
 {
     
-    string url = "http://api.qrserver.com/v1/create-qr-code/?data=";
-    url += text;
-    url += "&size=" + size + 'x' + size;
+    String url = "http://api.qrserver.com/v1/create-qr-code/?data=" + String(text) + "&size=" + String(size) + 'x' + String(size);
 
-    urlString = url;
+    mUrlString = url;
     
     HTTPClient http_qr_code;
     http_qr_code.useHTTP10(true);
     http_qr_code.begin(url.c_str());
     http_qr_code.GET();
 
+    printf("QR code URL: %s\n", url.c_str());
+    printf("QR code HTTP code: %s\n", http_qr_code.getString().c_str());
 
-    if (http_qr_code.getSize() > 0)
-    {
+    if (http_qr_code.getSize() > 0){
         mQrCode = QRcode_decodeString(http_qr_code.getString().c_str());
         return true;
-    }
-    else
-    {
+    }else{
         return false;
     }
 
 }
 
-void QrGeneretor::readQrCode(const char* filename)
+bool qr_code_generator::generateText(const char* path)
 {
+
 
 }
 
 
-string QrGeneretor::getUrlString()
+String qr_code_generator::getUrlString()
 {
-    return urlString;
+    if (mUrlString.length() == 0)
+    {
+        return "No URL";
+    }
+    else
+    {
+        return mUrlString;
+    }
 }
 
-void QrGeneretor::QRcodeFree()
+void* qr_code_generator::getQrCode()
 {
-    free(mQrCode)
+    if (mQrCode == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        return mQrCode;
+    }
 }
 
-void* QrGeneretor::QRcode_decodeString(const char *string)
+
+void* qr_code_generator::QRcode_decodeString(const char *string)
 {
 
 }
