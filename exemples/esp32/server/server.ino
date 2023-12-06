@@ -4,8 +4,8 @@
 #include <HTTPClient.h>
 
 // Replace with your network credentials
-const char* ssid = "OLAVO_NET";
-const char* password = "38224804ocg";
+const char* ssid = "Olavo";
+const char* password = "vida1234";
 
 // Set web server port number to 80
 WiFiServer server(80);
@@ -51,6 +51,9 @@ void setup() {
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
   server.begin();
+
+  getQrCode();
+
 }
 
 void getQrCode(){
@@ -135,5 +138,4 @@ void loop()
 
   }
 
-  getQrCode();
 }
