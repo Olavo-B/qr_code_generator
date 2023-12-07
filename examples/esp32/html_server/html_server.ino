@@ -2,11 +2,13 @@
 // Load Wi-Fi library
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <qr_code_generator.h>
 
 // Replace with your network credentials
 const char* ssid = "Olavo";
 const char* password = "vida1234";
 
+qr_code_generator qr;
 // Set web server port number to 80
 WiFiServer server(80);
 
@@ -52,23 +54,7 @@ void setup() {
   Serial.println(WiFi.localIP());
   server.begin();
 
-  getQrCode();
 
-}
-
-void getQrCode(){
-
-
-  HTTPClient http_qr_code;
-  http_qr_code.useHTTP10(true);
-  http_qr_code.begin("http://api.qrserver.com/v1/create-qr-code/?data=HelloWorld!&size=100x100");
-  http_qr_code.GET();
-
-  String result = http_qr_code.getString();
-
-
-  Serial.println("QRCode http communication");
-  Serial.println(result);
 }
 
 void loop()
@@ -113,6 +99,7 @@ void loop()
                 client.println(".button2 {background-color: #555555;}</style></head>");
                 
                 client.println("<body><h1>ESP32 Web Server</h1>");
+                client.println("<input><button class=\"button\">Submit</button></input>");
                 client.println("<img src='https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&amp;size=100x100' alt="" title="" />");
 
                 // The HTTP response ends with another blank line
