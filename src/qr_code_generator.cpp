@@ -55,24 +55,7 @@ bool qr_code_generator::generateQrCode(const char* text, const int size)
     printf("QR code result: %s\n", result.c_str());
 
     if (httpCode > 0) {
-        // HTTP header has been send and Server response header has been handled
-        printf("[HTTPS] GET... code: %d\n", httpCode);
-
-        // file found at server
-        if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
-
-            // Save the acquired data in spiffs for storage
-            fs::File f = SPIFFS.open(files, "w", true);
-            WiFiClient stream = http_qr_code.getStream();
-            printf("SIZE:%d\n", http_qr_code.getSize());
-
-            http_qr_code.writeToStream(&f);
-
-            printf("\n");
-            printf("FileWrite :"); printf(f.getWriteError() + "\n");
-            printf("FileSize :"); printf(f.size() + "\n");
-            f.close();
-        }
+        
         http_qr_code.end();
         return true;
     } else {
@@ -122,6 +105,28 @@ void* qr_code_generator::QRcode_decodeString(const char *string)
     printf(string);
 
 }
+
+// char* qr_code_generator::bmp2c(void *fp)
+// {
+//     if (fp == NULL)
+//         return NULL;
+
+//     fseek (fp, 0, SEEK_END);   // non-portable
+//     sz = ftell (fp);
+//     fseek (fp, 0, SEEK_SET);   // non-portable
+
+//     array[len - 4] = '_'; 
+//     printf("const unsigned char PROGMEM %s[%ld] = {\n", array, sz);
+//     do {
+//         n = fread(buf, 1, 16, fp);
+//         for (i = 0; i < n; i++) {
+//             printf("0x%02X,", buf[i]);
+//         }
+//         printf("\n");
+//     }while(n > 0);
+//     printf("};\n");
+//     return array;
+// }
 
 
 

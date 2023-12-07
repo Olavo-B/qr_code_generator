@@ -64,6 +64,13 @@ private:
      */
     void* QRcode_decodeString(const char* string);
 
+    /**
+     * Convert a BMP file to a C array
+     * @param fb - pointer to the BMP file
+     * @return pointer to the C array
+     */
+    // char* bmp2c(void* fb);
+
     void* mQrCode;
     String mUrlString;
 };
