@@ -14,6 +14,7 @@ Was used the T-Watch 2020 v1 as a development board. The T-Watch 2020 v1 is a sm
 - ESP32 WiFi library
 - QRCode library
 - T-Watch 2020 v1
+- ESPAsyncWebSrv library
 
 ## Usage
 
