@@ -33,7 +33,6 @@ void setup() {
       inputData = request->getParam("data", true)->value();
       Serial.println(inputData);
       qr.generateQrCode(inputData.c_str());
-      // request->send(200, "text/plain", "Data saved: " + inputData);
       request->send(200, "text/html", "<html><body><img src='" + qr.getUrlString() + "'></body></html>");
     } else {
       request->send(400, "text/plain", "Bad Request");

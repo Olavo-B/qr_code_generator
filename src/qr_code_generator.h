@@ -58,20 +58,15 @@ public:
 
 private:
     /**
-     * Decode a string into a QR code
-     * @param string - string to decode
-     * @return pointer to the decoded QR code
+     * Decode QR code from string
+     * @param response - pointer to the string containing the QR code
+     * @param size - size of QR code (100 - auto)
+     * @return pointer to the QR code
      */
-    void* QRcode_decodeString(const char* string);
+    uint16_t* QRcode_decodeString(const String& response, const int size = 100);
 
-    /**
-     * Convert a BMP file to a C array
-     * @param fb - pointer to the BMP file
-     * @return pointer to the C array
-     */
-    // char* bmp2c(void* fb);
 
-    void* mQrCode;
+    uint16_t* mQrCode;
     String mUrlString;
 };
 

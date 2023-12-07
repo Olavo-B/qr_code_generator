@@ -42,20 +42,14 @@ bool qr_code_generator::generateQrCode(const char* text, const int size)
     int httpCode  = http_qr_code.GET();
     String result = http_qr_code.getString();
 
-    String files = String("/") + String(text) + String(".png");
-
-
-    // Delete the files inside spiffs every time and download them again
-    if (SPIFFS.exists(files)) {
-        SPIFFS.remove(files);
-    }
-
+    
     printf("QR code URL: %s\n", url.c_str());
     printf("QR code HTTP code: %d\n", httpCode);
-    printf("QR code result: %s\n", result.c_str());
+    printf("QR code result: %s length %d\n", result.c_str(), result.length());
 
     if (httpCode > 0) {
         
+        mQrCode = QRcode_decodeString(http_qr_code.getString(), size);
         http_qr_code.end();
         return true;
     } else {
@@ -99,35 +93,22 @@ void* qr_code_generator::getQrCode()
 }
 
 
-void* qr_code_generator::QRcode_decodeString(const char *string)
+uint16_t* qr_code_generator::QRcode_decodeString(const String& response, const int size)
 {
+    
+    uint16_t* mImage = (uint16_t*)malloc(size * size * sizeof(uint16_t));
+    const char* data = response.c_str();
+    size_t dataSize  = response.length();
 
-    printf(string);
+    // Exibir a imagem no display
+    for (size_t i = 0; i < dataSize; i += 2) {
+        uint16_t pixel = (data[i] << 8) | data[i + 1];
+        mImage[i / 2]  = pixel;
+    }
+
+    return mImage;
 
 }
-
-// char* qr_code_generator::bmp2c(void *fp)
-// {
-//     if (fp == NULL)
-//         return NULL;
-
-//     fseek (fp, 0, SEEK_END);   // non-portable
-//     sz = ftell (fp);
-//     fseek (fp, 0, SEEK_SET);   // non-portable
-
-//     array[len - 4] = '_'; 
-//     printf("const unsigned char PROGMEM %s[%ld] = {\n", array, sz);
-//     do {
-//         n = fread(buf, 1, 16, fp);
-//         for (i = 0; i < n; i++) {
-//             printf("0x%02X,", buf[i]);
-//         }
-//         printf("\n");
-//     }while(n > 0);
-//     printf("};\n");
-//     return array;
-// }
-
 
 
 
